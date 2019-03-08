@@ -6,6 +6,9 @@
         (t "~/.emacs.d/")))
 
 
+; Test
+
+
 (defun load-user-file (file)
   (interactive "f")
   "Load a file in current user's configuration directory"
