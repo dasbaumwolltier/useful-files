@@ -15,3 +15,4 @@
   (load-file (expand-file-name file user-init-dir)))
 
 (load-user-file "personal.el")
+(load-user-file "keyboard.el")

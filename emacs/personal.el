@@ -1,6 +1,6 @@
 (require 'package)
 
-(setq backup-directory-alias `(("." . "~/emacs-saves")))
+(setq backup-directory-alist `(("." . "~/emacs-saves")))
 (setq backup-by-copying t)
 (setq delete-old-versions t
       kept-new-versions 20
@@ -9,3 +9,5 @@
 
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")))
+
+(add-hook 'after-init-hook 'global-company-mode)             

@@ -1,3 +1,5 @@
+export SSH_ASKPASS=(which ksshaskpass)
+
 function start --description "Open using the default program"
     xdg-open $argv[1..-1]   
 end
