@@ -16,9 +16,3 @@
 
 (load-user-file "personal.el")
 (load-user-file "keyboard.el")
-(load-user-file "company-fish.el")
-
-(when (executable-find "fish")
-  (add-to-list 'company-backends 'company-fish)
-  (add-hook 'shell-mode-hook 'company-mode)
-  (add-hook 'eshell-mode-hook 'company-mode))
