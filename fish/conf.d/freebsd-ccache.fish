@@ -1,4 +1,4 @@
-set ccacheSize = "100G"
+set ccacheSize "100G"
 
 # set ccache varibles
 setenv PATH "/usr/local/libexec/ccache:$PATH"

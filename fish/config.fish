@@ -1,4 +1,5 @@
 set filename (status --current-filename)
+set fileDir (dirname $filename)
 set currentUserDir ~(whoami)
 
 if not string match -q -- "$currentUserDir*" $filename
@@ -13,8 +14,8 @@ function ls --description "ls with color"
     /bin/ls --color=always $argv[1..-1]
 end
 
-if test -d conf.d
-    for configFile in conf.d/*
+if test -d "$fileDir/conf.d"
+    for configFile in "$fileDir/conf.d/*"
         source $configFile
     end
 end
