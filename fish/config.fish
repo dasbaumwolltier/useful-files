@@ -15,7 +15,7 @@ function ls --description "ls with color"
 end
 
 if test -d "$fileDir/conf.d"
-    for configFile in "$fileDir/conf.d/*"
+    for configFile in "$fileDir"/conf.d/*
         source $configFile
     end
 end
