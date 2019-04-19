@@ -6,7 +6,7 @@ function gpl --description "Calls the command git pull (while preserving additio
     git pull $argv[1..-1]
 end
 
-function gco --description "Calls the command git commit (while preserving additional arguments)"
+function gcm --description "Calls the command git commit (while preserving additional arguments)"
     git commit $argv[1..-1]
 end
 
@@ -14,6 +14,10 @@ function gre --description "Calls the command git rebase (while preserving addit
     git rebase $argv[1..-1]
 end
 
-function grei --description "Calls the command git rebase --interactive (while preserving additional arguments)"
+function grba --description "Calls the command git rebase --interactive (while preserving additional arguments)"
     git rebase --interactive $argv[1..-1]
+end
+
+function gst --description "Calls the command git status (while preserving additional arguments)"
+    git status $argv[1..-1]
 end
