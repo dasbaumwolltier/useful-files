@@ -37,4 +37,4 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
         room.send_text(message)
 
     for messageNum in messages[0].split(b' '):
-        connection.store(messageNum, '+FLAGS', '\\\\Deleted')
+        connection.store(messageNum, '+FLAGS', R'\\Deleted')
