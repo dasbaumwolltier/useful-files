@@ -20,6 +20,9 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
         for messageNum in messages[0].split(b' '):
             print('Fetching message number: ', messageNum)
 
+            if messageNum == b'':
+                continue
+
             _, data = connection.fetch(messageNum, '(RFC822)')
             msg: email.message.Message = email.message_from_bytes(data[0][1])
             msgStr = msg.get_payload()
@@ -37,4 +40,4 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
         room.send_text(message)
 
     for messageNum in messages[0].split(b' '):
-        connection.store(messageNum, '+FLAGS', R'\\Deleted')
+        connection.store(messageNum, '+FLAGS', R'\Deleted')
