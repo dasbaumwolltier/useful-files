@@ -41,3 +41,7 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
 
     for messageNum in messages[0].split(b' '):
         connection.store(messageNum, '+FLAGS', R'\Deleted')
+
+    retcode, messages = connection.search(None, '(ALL)')
+    if(len(messages[0].split(b' ')) >= 1024):
+        connection.expunge()
