@@ -4,12 +4,21 @@ import imaplib
 from matrix_client import client, api
 from pynodered import node_red, NodeProperty
 
-@node_red(category='pyfuncts')
+@node_red(category='pyfuncts',
+    properties=dict(
+        mailserver=NodeProperty('String'),
+        mailbox=NodeProperty('String'),
+        password=NodeProperty('String'),
+        matrixUrl=NodeProperty('String'),
+        matrixUserId=NodeProperty('String'),
+        matrixToken=NodeProperty('String'),
+        matrixRoomId=NodeProperty('String')
+    ))
 def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
-    connection = imaplib.IMAP4('mail.guldner.eu')
+    connection = imaplib.IMAP4(node.mailserver.value)
 
     connection.starttls()
-    connection.login('daemons@guldner.eu', 'ebAnbQAANGcAn3GWXHE9vntUqSBmVt2gtwuV2AvcVm6MFrQc5L3CwHua8rJTzyLJQGbjTP5uDZkvB4kHq3EGkqZJ3RRtAXgCUKSt')
+    connection.login(node.mailbox.value, node.password.value)
 
     connection.select('INBOX')
     retcode, messages = connection.search(None, '(UNSEEN)')
@@ -25,7 +34,7 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
 
             _, data = connection.fetch(messageNum, '(RFC822)')
             msg: email.message.Message = email.message_from_bytes(data[0][1])
-            msgStr = msg.get_payload()
+            msgStr = msg['Subject'] + ':\n\n' + msg.get_payload()
 
             if msgStr not in filteredMessages:
                 filteredMessages.append(msgStr)
@@ -33,8 +42,8 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
     if len(filteredMessages) == 0:
         return msg
 
-    cli = client.MatrixClient('https://chat.guldner.eu', token='MDAxOGxvY2F0aW9uIGd1bGRuZXIuZXUKMDAxM2lkZW50aWZpZXIga2V5CjAwMTBjaWQgZ2VuID0gMQowMDIzY2lkIHVzZXJfaWQgPSBAbnJlZDpndWxkbmVyLmV1CjAwMTZjaWQgdHlwZSA9IGFjY2VzcwowMDIxY2lkIG5vbmNlID0gRU46LUoxKjdxKmNVfk07SAowMDJmc2lnbmF0dXJlIJ23P_JFtJ1rCFL3jUP6LOnfph0z6_t9uBPsjxmXWxwJCg', user_id='@nred:guldner.eu')
-    room: client.Room = cli.join_room('!SmSdHbmEVBqDlcSbug:guldner.eu')
+    cli = client.MatrixClient(node.matrixUrl.value, token=node.matrixToken.value, user_id=node.matrixUserId.value)
+    room: client.Room = cli.join_room(node.matrixRoomId.value)
 
     for message in filteredMessages:
         room.send_text(message)
