@@ -6,13 +6,13 @@ from pynodered import node_red, NodeProperty
 
 @node_red(category='pyfuncts',
     properties=dict(
-        mailserver=NodeProperty('String'),
-        mailbox=NodeProperty('String'),
-        password=NodeProperty('String'),
-        matrixUrl=NodeProperty('String'),
-        matrixUserId=NodeProperty('String'),
-        matrixToken=NodeProperty('String'),
-        matrixRoomId=NodeProperty('String')
+        mailserver=NodeProperty('Mailserver'),
+        mailbox=NodeProperty('Mailbox'),
+        password=NodeProperty('Password'),
+        matrixUrl=NodeProperty('Matrix URL'),
+        matrixUserId=NodeProperty('Matrix user ID'),
+        matrixToken=NodeProperty('Matrix token'),
+        matrixRoomId=NodeProperty('Matrix room ID')
     ))
 def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
     connection = imaplib.IMAP4(node.mailserver.value)
