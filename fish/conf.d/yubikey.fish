@@ -13,4 +13,4 @@ if test $status -eq 1
 end
 
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-#echo UPDATESTARTUPTTY | gpg-connect-agent
+(echo UPDATESTARTUPTTY | gpg-connect-agent 2>&1 > /dev/null
