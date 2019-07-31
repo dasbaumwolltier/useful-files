@@ -15,6 +15,7 @@ from pynodered import node_red, NodeProperty
         matrixRoomId=NodeProperty('Matrix room ID')
     ))
 def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
+    print(node.mailserver.value, node.mailbox.value, node.password.value, node.matrixUrl.value, node.matrixUserId.value, node.matrixToken.value, node.matrixRoomId.value)
     connection = imaplib.IMAP4(node.mailserver.value)
 
     connection.starttls()
@@ -24,6 +25,8 @@ def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
     retcode, messages = connection.search(None, '(UNSEEN)')
 
     filteredMessages = list()
+
+    print(messages)
 
     if retcode == 'OK':
         for messageNum in messages[0].split(b' '):
