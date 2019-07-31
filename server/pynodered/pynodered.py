@@ -16,13 +16,13 @@ from pynodered import node_red, NodeProperty
     ))
 def get_all_emails_body_unique_and_send_over_matrix_daemons(node, msg):
     print(node.mailserver.value, node.mailbox.value, node.password.value, node.matrixUrl.value, node.matrixUserId.value, node.matrixToken.value, node.matrixRoomId.value)
-    connection = imaplib.IMAP4(node.mailserver.value)
+    print(connection = imaplib.IMAP4(node.mailserver.value))
 
-    connection.starttls()
-    connection.login(node.mailbox.value, node.password.value)
+    print(connection.starttls())
+    print(connection.login(node.mailbox.value, node.password.value))
 
-    connection.select('INBOX')
-    retcode, messages = connection.search(None, '(UNSEEN)')
+    print(connection.select('INBOX'))
+    print(retcode, messages = connection.search(None, '(UNSEEN)'))
 
     filteredMessages = list()
 
